@@ -1,0 +1,97 @@
+[project]
+name = "llm-eval-harness"
+version = "0.1.0"
+description = "Production-grade LLM evaluation harness with QLoRA finetuning and vLLM serving"
+authors = [{name = "Your Name", email = "your.email@example.com"}]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["llm", "evaluation", "finetuning", "qlora", "vllm", "machine-learning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    # Model backends
+    "torch>=2.1.0",
+    "transformers>=4.36.0",
+    "vllm>=0.6.0",
+    "openai>=1.0.0",
+    "anthropic>=0.8.0",
+
+    # Finetuning
+    "peft>=0.7.0",
+    "bitsandbytes>=0.41.0",
+    "accelerate>=0.24.0",
+    "trl>=0.7.0",
+
+    # Evaluation
+    "jsonschema>=4.20.0",
+    "tiktoken>=0.5.0",
+    "tenacity>=8.2.0",
+
+    # Observability (optional)
+    "opentelemetry-api>=1.21.0",
+    "opentelemetry-sdk>=1.21.0",
+    "opentelemetry-exporter-otlp>=1.21.0",
+    "prometheus-client>=0.19.0",
+
+    # Storage & Analysis
+    "pandas>=2.1.0",
+    "matplotlib>=3.8.0",
+    "seaborn>=0.13.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.0.0",
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "jupyter>=1.0.0",
+    "ipython>=8.17.0",
+]
+
+[project.scripts]
+llm-eval = "llm_eval.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311']
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I"]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+addopts = "-v --cov=src/llm_eval --cov-report=term-missing"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "regression: marks tests as regression tests",
+]
