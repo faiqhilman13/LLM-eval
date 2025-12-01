@@ -20,13 +20,11 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install openai pyyaml pytest pytest-cov
-          # Add src to Python path
-          export PYTHONPATH="${PYTHONPATH}:${GITHUB_WORKSPACE}/src"
 
       - name: Run unit tests
         run: |
-          export PYTHONPATH="${PYTHONPATH}:${GITHUB_WORKSPACE}/src"
-          python3 scripts/test_pipeline.py
+          cd ${{ github.workspace }}
+          PYTHONPATH="${GITHUB_WORKSPACE}/src:${PYTHONPATH}" python3 scripts/test_pipeline.py
 
       - name: Check code structure
         run: |
