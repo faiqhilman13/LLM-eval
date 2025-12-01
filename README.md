@@ -12,13 +12,16 @@ Production-grade evaluation framework for comparing base models, API models, and
 - **CI/CD regression gates**: Automated quality/latency/cost monitoring
 - **OpenTelemetry traces**: Optional distributed tracing (disabled by default)
 
-## 📊 Results (Coming Soon)
+## ✅ Implementation Status
 
-| Model | JSON Accuracy | Latency (p95) | Cost/1k |
-|-------|---------------|---------------|---------|
-| GPT-4o-mini | TBD | TBD | $0.60 |
-| Llama 3 8B Base | TBD | TBD | $0 |
-| Llama 3 + LoRA | TBD | TBD | $0 |
+**M0-M4 COMPLETE** - Full production-ready harness!
+
+- ✅ M1: Model adapters (API + HuggingFace) + JSON task + deterministic scoring
+- ✅ M2: LLM-as-judge scorer + Q&A task + threshold system + comparison CLI
+- ✅ M3: CSV export + analysis notebooks + optional OpenTelemetry tracing
+- ✅ M4: QLoRA trainer + HuggingFace adapter + CI/CD pipelines
+
+**Datasets**: 4,300 samples (2,150 JSON + 2,150 Q&A) across train/val/test splits
 
 ## 🚀 Quick Start
 
@@ -54,13 +57,23 @@ cp .env.example .env
 ### Run Your First Evaluation
 
 ```bash
-# Run JSON extraction task with GPT-4o-mini
-python scripts/run_eval.py --task json --model gpt-4o-mini
+# Set your OpenAI API key
+export OPENAI_API_KEY="sk-..."
 
-# Compare results
-python scripts/compare_runs.py \
-  --baseline data/runs/baseline \
-  --current data/runs/latest
+# Run JSON extraction task (120 test samples)
+python3 scripts/run_eval.py --task json --model gpt-4o-mini
+
+# Run Q&A task with LLM judge
+python3 scripts/run_eval.py --task qa --model gpt-4o-mini --judge-model gpt-4o-mini
+
+# Test with small batch
+python3 scripts/run_eval.py --task json --model gpt-4o-mini --limit 5
+
+# Compare two runs
+python3 scripts/compare_runs.py \
+  --baseline <run_id_1> \
+  --current <run_id_2> \
+  --fail-on-regression
 ```
 
 ## 📁 Project Structure

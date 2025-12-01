@@ -1,0 +1,31 @@
+name: Unit Tests
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install openai pyyaml pytest pytest-cov
+
+      - name: Run unit tests
+        run: |
+          python3 scripts/test_pipeline.py
+
+      - name: Check code structure
+        run: |
+          python3 -m py_compile src/llm_eval/**/*.py
+          python3 -m py_compile scripts/*.py

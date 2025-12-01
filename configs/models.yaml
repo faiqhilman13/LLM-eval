@@ -1,0 +1,29 @@
+# Model configurations for LLM Evaluation Harness
+
+openai:
+  gpt-4o:
+    api_key: ${OPENAI_API_KEY}
+    max_tokens: 4096
+    temperature: 0.0
+
+  gpt-4o-mini:
+    api_key: ${OPENAI_API_KEY}
+    max_tokens: 4096
+    temperature: 0.0
+
+  gpt-3.5-turbo:
+    api_key: ${OPENAI_API_KEY}
+    max_tokens: 4096
+    temperature: 0.0
+
+# Placeholder for future model providers
+anthropic:
+  claude-3-opus:
+    api_key: ${ANTHROPIC_API_KEY}
+    max_tokens: 4096
+    temperature: 0.0
+
+  claude-3-sonnet:
+    api_key: ${ANTHROPIC_API_KEY}
+    max_tokens: 4096
+    temperature: 0.0
