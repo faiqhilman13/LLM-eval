@@ -20,9 +20,8 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install openai pyyaml pytest pytest-cov
-
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=${{ github.workspace }}/src:$PYTHONPATH" >> $GITHUB_ENV
+          # Install package in editable mode
+          pip install -e .
 
       - name: Run unit tests
         run: python3 scripts/test_pipeline.py
