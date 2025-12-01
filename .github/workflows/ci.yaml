@@ -20,12 +20,16 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install openai pyyaml pytest pytest-cov
+          # Add src to Python path
+          export PYTHONPATH="${PYTHONPATH}:${GITHUB_WORKSPACE}/src"
 
       - name: Run unit tests
         run: |
+          export PYTHONPATH="${PYTHONPATH}:${GITHUB_WORKSPACE}/src"
           python3 scripts/test_pipeline.py
 
       - name: Check code structure
         run: |
-          python3 -m py_compile src/llm_eval/**/*.py
-          python3 -m py_compile scripts/*.py
+          # Check Python syntax
+          find src/llm_eval -name "*.py" -exec python3 -m py_compile {} \;
+          find scripts -name "*.py" -exec python3 -m py_compile {} \;
