@@ -15,12 +15,20 @@ Complete guide for running evaluations with local models on your GPU.
 ```bash
 cd /Users/faiqhilman/Projects/llm-eval-harness
 
-# Core + local model support
-pip install torch transformers accelerate bitsandbytes peft trl datasets
+# For local models (includes torch, transformers)
+pip install -e .[local]
 
-# Optional but recommended
-pip install pandas matplotlib seaborn jupyter
+# For finetuning (includes all training deps)
+pip install -e .[finetune]
+
+# For analysis (includes pandas, matplotlib, jupyter)
+pip install -e .[analysis]
+
+# Or install everything at once
+pip install -e .[all]
 ```
+
+**Note**: See [INSTALL.md](INSTALL.md) for detailed installation options.
 
 ## 2. Test Your Setup
 

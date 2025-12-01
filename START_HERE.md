@@ -11,7 +11,7 @@ python3 scripts/test_pipeline.py
 
 ```bash
 # Install dependencies first
-pip install torch transformers accelerate bitsandbytes
+pip install -e .[local]  # Includes torch + transformers
 
 # Run small test (5 samples, ~2 minutes)
 python3 scripts/run_eval.py \
