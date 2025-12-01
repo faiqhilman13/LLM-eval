@@ -23,6 +23,13 @@ jobs:
           # Install package in editable mode
           pip install -e .
 
+      - name: Verify installation
+        run: |
+          python3 -c "import sys; print('Python path:', sys.path)"
+          pip list | grep llm-eval || echo "Package not found in pip list"
+          ls -la src/llm_eval/
+          python3 -c "import llm_eval; print('llm_eval location:', llm_eval.__file__)" || echo "Failed to import llm_eval"
+
       - name: Run unit tests
         run: python3 scripts/test_pipeline.py
 

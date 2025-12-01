@@ -116,6 +116,8 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["llm_eval*"]
+namespaces = false
 
 [tool.black]
 line-length = 100
